@@ -16,7 +16,7 @@ libraries = []
 library = {'number_books': 0, 'signup_time': 0, 'ship_limit': 0, 'books': [0, 1, 2]}
 
 sorted_libraries = []
-
+sorted_solution_libraries = []
 
 def read_file(fname):
     global total_books
@@ -45,6 +45,7 @@ def read_file(fname):
 
 
 def logic():
+    global sorted_solution_libraries
     global sorted_libraries
     for library in libraries:
         for i, book in enumerate(library['books']):
@@ -67,20 +68,29 @@ def logic():
         for i in [x for x in xrange(len(sorted_libraries)) if x != a]:
             if element_to_remove in sorted_libraries[i]:
                 sorted_libraries[i].remove(element_to_remove)
+    solution_libraries = []
+    for i, library in enumerate(sorted_libraries):
+        solution_libraries.append((library, libraries[i]['signup_time'],i))
+    print("solution libraries: " + str(solution_libraries))
+    sorted_solution_libraries = sorted(solution_libraries, key=lambda x: x[1])
+    print("-------------------------")
+    print("sorted_solution_libraries: " + str(sorted_solution_libraries))
 
 
 def write_solution(namefile):
-    f = open(namefile + ".out", "w")
-    # f.write(str(len(pizza_slices_list[0])) + '\n')
-
-
-# for a in solution:
-#    f.write(str(a) + ' ')
-# f.close()
+    f = open(namefile + "_output.txt", "w")
+    f.write(str(len(sorted_solution_libraries)) + '\n')
+    for library in sorted_solution_libraries:
+        f.write(str(library[2])+ " " + str(len(library[0])) + '\n')
+        for a in library[0]:
+            f.write(str(a[0]) + ' ')
+        f.write('\n')
+    f.close()
 
 
 def main():
-    read_file("problem/a_example.txt")
+    file = "a_example"
+    read_file("problem/"+file+".txt")
     logic()
     print("total_books: " + str(total_books))
     print("total_libraries: " + str(total_libraries))
@@ -91,6 +101,7 @@ def main():
     print("-----------------------")
     print(sorted_libraries)
 
+    write_solution(file)
 
 if __name__ == "__main__":
     main()
