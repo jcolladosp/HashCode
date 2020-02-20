@@ -18,6 +18,7 @@ library = {'number_books': 0, 'signup_time': 0, 'ship_limit': 0, 'books': [0, 1,
 sorted_libraries = []
 sorted_solution_libraries = []
 
+
 def read_file(fname):
     global total_books
     global total_libraries
@@ -33,15 +34,17 @@ def read_file(fname):
                 total_days = int(l.split()[2])
             elif i == 1:
                 books_scores = l.split()
-            elif len(l.split()) == 3:
+            elif i % 2 == 0:
                 number_books = l.split()[0]
                 signup_time = l.split()[1]
                 ship_limit = l.split()[2]
 
                 libraries.append(
                     {'number_books': number_books, 'signup_time': signup_time, 'ship_limit': ship_limit, 'books': []})
-            else:
+            elif i % 2 != 0:
                 libraries[len(libraries) - 1]['books'] = l.split()
+
+
 
 
 def logic():
@@ -70,7 +73,7 @@ def logic():
                 sorted_libraries[i].remove(element_to_remove)
     solution_libraries = []
     for i, library in enumerate(sorted_libraries):
-        solution_libraries.append((library, libraries[i]['signup_time'],i))
+        solution_libraries.append((library, libraries[i]['signup_time'], i))
     print("solution libraries: " + str(solution_libraries))
     sorted_solution_libraries = sorted(solution_libraries, key=lambda x: x[1])
     print("-------------------------")
@@ -81,7 +84,7 @@ def write_solution(namefile):
     f = open(namefile + "_output.txt", "w")
     f.write(str(len(sorted_solution_libraries)) + '\n')
     for library in sorted_solution_libraries:
-        f.write(str(library[2])+ " " + str(len(library[0])) + '\n')
+        f.write(str(library[2]) + " " + str(len(library[0])) + '\n')
         for a in library[0]:
             f.write(str(a[0]) + ' ')
         f.write('\n')
@@ -89,8 +92,16 @@ def write_solution(namefile):
 
 
 def main():
-    file = "a_example"
-    read_file("problem/"+file+".txt")
+    #file = "a_example"
+    #file = "b_read_on"
+    #file = "c_incunabula"
+    #file = "d_tough_choices"
+    #file = "e_so_many_books"
+    file = "f_libraries_of_the_world"
+
+
+
+    read_file("problem/" + file + ".txt")
     logic()
     print("total_books: " + str(total_books))
     print("total_libraries: " + str(total_libraries))
