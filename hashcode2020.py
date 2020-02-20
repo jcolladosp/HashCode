@@ -47,12 +47,9 @@ def main():
     print("-------------------------")
 
     pizza_slices_list = list(map(int, pizza_slices_list))
-    search_combinations()
+
     print("length array solution: " + str(len(solution[0])))
-    print(solution)
-    solution_file = list(map(itemgetter(0), solution[0]))
-    print("-------------------------\n")
-    print("solution to print: " + str(solution_file))
+
 
 if __name__ == "__main__":
     main()
