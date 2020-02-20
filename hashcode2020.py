@@ -73,7 +73,8 @@ def logic():
                 sorted_libraries[i].remove(element_to_remove)
     solution_libraries = []
     for i, library in enumerate(sorted_libraries):
-        solution_libraries.append((library, libraries[i]['signup_time'], i))
+        if len(library) > 0:
+            solution_libraries.append((library, libraries[i]['signup_time'], i))
     print("solution libraries: " + str(solution_libraries))
     sorted_solution_libraries = sorted(solution_libraries, key=lambda x: x[1])
     print("-------------------------")
@@ -94,10 +95,10 @@ def write_solution(namefile):
 def main():
     #file = "a_example"
     #file = "b_read_on"
-    #file = "c_incunabula"
+    file = "c_incunabula"
     #file = "d_tough_choices"
     #file = "e_so_many_books"
-    file = "f_libraries_of_the_world"
+    #file = "f_libraries_of_the_world"
 
 
 
