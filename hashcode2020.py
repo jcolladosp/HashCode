@@ -1,54 +1,63 @@
 import itertools
 from operator import itemgetter
 
+# Primera linea
+total_books = 0
+total_libraries = 0
+total_days = 0
 
-max_slices = 0
-types_pizza = 0
-smallest_pizza = 0
-pizza_slices_list = []
-solution = []
+# Segona linea
+books_scores = []
+
+# Ter
+libraries = []
+library = {'number_books': 0, 'signup_time': 0, 'ship_limit': 0, 'books': [0, 1, 2]}
 
 
 def read_file(fname):
-    global max_slices
-    global types_pizza
-    global smallest_pizza
-    global pizza_slices_list
+    global total_books
+    global total_libraries
+    global total_days
+    global books_scores
+    global libraries
+
 
     with open(fname) as f:
         for i, l in enumerate(f):
             if i == 0:
-                max_slices = int(l.split()[0])
-                types_pizza = int(l.split()[1])
-            if i == 1:
-                smallest_pizza = int(l.split()[0])
-                pizza_slices_list = l.split()
+                total_books = int(l.split()[0])
+                total_libraries = int(l.split()[1])
+                total_days = int(l.split()[2])
+            elif i == 1:
+                books_scores = l.split()
+            elif len(l.split()) == 3:
+                number_books = l.split()[0]
+                signup_time = l.split()[1]
+                ship_limit = l.split()[2]
 
+                libraries.append({'number_books': number_books, 'signup_time': signup_time, 'ship_limit': ship_limit, 'books': []})
+            else:
+                libraries[len(libraries)-1]['books'] = l.split()
 
 def write_solution(namefile):
     f = open(namefile + ".out", "w")
-    f.write(str(len(pizza_slices_list[0])) + '\n')
-    for a in solution:
-        f.write(str(a) + ' ')
-    f.close()
+    # f.write(str(len(pizza_slices_list[0])) + '\n')
+
+
+# for a in solution:
+#    f.write(str(a) + ' ')
+# f.close()
 
 
 def main():
-    global pizza_slices_list
-    # read_file("a_example.in")
-    # read_file("b_small.in")
-    # read_file("c_medium.in")
-    read_file("d_quite_big.in")
+    read_file("problem/a_example.txt")
 
-    print("max_slices: " + str(max_slices))
-    print("types_pizza: " + str(types_pizza))
-    print("smallest_pizza: " + str(smallest_pizza))
-    print("pizza_slices_list: " + str(pizza_slices_list))
-    print("-------------------------")
-
-    pizza_slices_list = list(map(int, pizza_slices_list))
-
-    print("length array solution: " + str(len(solution[0])))
+    print("total_books: " + str(total_books))
+    print("total_libraries: " + str(total_libraries))
+    print("total_days: " + str(total_days))
+    print("-----------------------")
+    print("books_scores: " + str(books_scores))
+    print(libraries)
 
 
 if __name__ == "__main__":
